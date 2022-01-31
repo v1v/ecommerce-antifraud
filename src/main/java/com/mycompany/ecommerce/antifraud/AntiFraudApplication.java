@@ -3,11 +3,13 @@ package com.mycompany.ecommerce.antifraud;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.Map;
@@ -30,11 +32,19 @@ public class AntiFraudApplication {
 
 	@RequestMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map healthcheck() {
+		generateError();
 		return Collections.singletonMap("status", "Up");
 	}
 
 	@RequestMapping(value = "/version", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map version() {
 		return Collections.singletonMap("version", pomVersion);
+	}
+
+	private void generateError() {
+		if (pomVersion.equals("0.0.3-SNAPSHOT")) {
+			// Generate a synthetic error if version is not right
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+		}
 	}
 }
