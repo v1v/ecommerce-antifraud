@@ -1,5 +1,6 @@
 package com.mycompany.ecommerce.antifraud;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
@@ -15,6 +16,9 @@ import java.util.Map;
 @RestController
 public class AntiFraudApplication {
 
+	@Value("${pom.version}")
+	private String pomVersion;
+
 	public static void main(String[] args) {
 		SpringApplication.run(AntiFraudApplication.class, args);
 	}
@@ -26,6 +30,11 @@ public class AntiFraudApplication {
 
 	@RequestMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map healthcheck() {
-		return Collections.singletonMap("response", "Status Up");
+		return Collections.singletonMap("status", "Up");
+	}
+
+	@RequestMapping(value = "/version", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map version() {
+		return Collections.singletonMap("version", pomVersion);
 	}
 }
