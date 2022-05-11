@@ -21,5 +21,15 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                // TODO: get previous and current versions to be deployed.
+                build(job: 'antifraud/deploy-antifraud',
+                          parameters: [
+                            string(name: 'PREVIOUS_VERSION', value: '0.0.1-SNAPSHOT')
+                            string(name: 'VERSION', value: '0.0.2-SNAPSHOT')
+                      ])
+            }
+        }
     }
 }
