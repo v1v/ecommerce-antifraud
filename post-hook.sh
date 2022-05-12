@@ -1,7 +1,8 @@
 #!/bin/bash
 
 JENKINS_URL="http://localhost:8080"
-JENKINS_CRUMB=$(curl --silent "${JENKINS_URL}/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
 
-## TODO: review the CUrl command to run the build in the CI automatically
-curl -X POST -H "${JENKINS_CRUMB}" "${JENKINS_URL}/job/antifraud/job/antifraud/job/main/build"
+if [ ! -f jenkins-cli.jar ] ; then
+	wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+fi
+java -jar jenkins-cli.jar -s "${JENKINS_URL}/" -webSocket build antifraud/antifraud/main
