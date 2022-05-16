@@ -27,12 +27,15 @@ public class AntiFraudApplication {
 
 	@GetMapping("/ecommerce")
 	public String ecommerce(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name);
+		//String prefix = "Bye";
+		String prefix = "Hello";
+		return String.format("%s %s!", prefix, name);
 	}
 
 	@RequestMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map healthcheck() {
-		generateError();
+		// Comment out to generate a synthetic error
+		//generateError();
 		return Collections.singletonMap("status", "Up");
 	}
 
@@ -42,9 +45,10 @@ public class AntiFraudApplication {
 	}
 
 	private void generateError() {
-		if (pomVersion.equals("0.0.3-SNAPSHOT")) {
+		// Comment out to generate a synthetic error
+		/*if (pomVersion.equals("0.0.3")) {
 			// Generate a synthetic error if version is not right
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-		}
+		}*/
 	}
 }
