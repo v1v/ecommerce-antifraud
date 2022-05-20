@@ -1,16 +1,11 @@
 pipeline {
-    agent none
+    agent { label 'linux' }
     options {
         disableConcurrentBuilds()
         quietPeriod(7)
     }
     stages {
         stage('Checkout') {
-            agent {
-                node {
-                    label 'linux'
-                }
-            }
             steps {
                 echo 'cache checkout'
                 script {
