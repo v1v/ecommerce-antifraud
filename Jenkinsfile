@@ -44,6 +44,14 @@ pipeline {
             }
         }
     }
+    post {
+        failure {
+            notifyBuild('danger')
+        }
+        success {
+            notifyBuild('good')
+        }
+    }
 }
 
 def previousVersion() {
@@ -54,4 +62,24 @@ def previousVersion() {
 def newVersion() {
     def props = readProperties(file: 'versions.properties')
     return props.NEW
+}
+
+def notifyBuild(status) {
+    def blocks =
+    [
+        [
+            "type": "section",
+            "text": [
+                "type": "mrkdwn",
+                "text": "Build ${currentBuild.result} (version: ${newVersion()})\n\n<${env.OTEL_ELASTIC_URL}|View traces>"
+            ],
+            "accessory": [
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/open-telemetry/opentelemetry.io/main/static/img/logos/opentelemetry-logo-nav.png",
+                "alt_text": "OpenTelemetry"
+            ]
+        ]
+    ]
+    //slackSend channel: 'cicd', color: status, message: "ready ${env.OTEL_ELASTIC_URL}"
+    slackSend(channel: "#cicd", blocks: blocks)
 }
