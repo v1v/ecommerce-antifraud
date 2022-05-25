@@ -46,13 +46,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-           <!-- SNYK bug
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <version>5.3.20</version>
             </dependency>
-            -->
         </dependencies>
     </dependencyManagement>
 
