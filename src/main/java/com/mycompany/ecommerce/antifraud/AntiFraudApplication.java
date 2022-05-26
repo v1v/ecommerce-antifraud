@@ -18,6 +18,27 @@ import java.util.Map;
 @RestController
 public class AntiFraudApplication {
 
+	private String format = "<html>"
+		+ "<head><title>%s</title></head>"
+		+ "<style>"
+		+ "	.center-screen {"
+		+ "		position: fixed;"
+		+ "		top: 50%%;"
+		+ "		left: 50%%;"
+		+ "		transform: translate(-50%%, -50%%);"
+		+ "	}"
+		+ "	body { background-color: Ivory; }"
+		+ " h1 { color: %s; font-size: 96px }"
+		+ "</style>"
+		+ "<body>"
+		+ "	<div class='center-screen'>"
+		+ "		<h1>%s</h1>"
+		+ "	</div>"
+		+ "</body>"
+		+ "</html>";
+	private String green = "SeaGreen";
+	private String red = "DarkRed";
+
 	@Value("${pom.version}")
 	private String pomVersion;
 
@@ -29,7 +50,9 @@ public class AntiFraudApplication {
 	public String ecommerce(@RequestParam(value = "name", defaultValue = "World") String name) {
 		//String prefix = "Bye";
 		String prefix = "Hello";
-		return String.format("%s %s!", prefix, name);
+		String title = String.format("%s %s!", prefix, name);
+		String body = String.format("%s %s!", prefix, name);
+		return String.format(format, title, green, body);
 	}
 
 	@RequestMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
