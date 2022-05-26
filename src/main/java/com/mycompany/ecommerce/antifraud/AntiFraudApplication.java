@@ -48,8 +48,7 @@ public class AntiFraudApplication {
 
 	@GetMapping("/ecommerce")
 	public String ecommerce(@RequestParam(value = "name", defaultValue = "World") String name) {
-		//String prefix = "Bye";
-		String prefix = "Hello";
+		String prefix = "Bye";
 		String title = String.format("%s %s!", prefix, name);
 		String body = String.format("%s %s!", prefix, name);
 		return String.format(format, title, green, body);
