@@ -12,9 +12,18 @@ index 42e5354..9dc4044 100644
      <description>Ecommerce Anti Fraud</description>
      <properties>
 diff --git a/src/main/java/com/mycompany/ecommerce/antifraud/AntiFraudApplication.java b/src/main/java/com/mycompany/ecommerce/antifraud/AntiFraudApplication.java
-index 52d3f38..904ef0b 100644
+index 52d3f38..6cb1969 100644
 --- a/src/main/java/com/mycompany/ecommerce/antifraud/AntiFraudApplication.java
 +++ b/src/main/java/com/mycompany/ecommerce/antifraud/AntiFraudApplication.java
+@@ -57,7 +57,7 @@ public class AntiFraudApplication {
+ 	@RequestMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
+ 	public Map healthcheck() {
+ 		// Comment out to generate a synthetic error
+-		//generateError();
++		generateError();
+ 		return Collections.singletonMap("status", "Up");
+ 	}
+ 
 @@ -68,9 +68,9 @@ public class AntiFraudApplication {
  
  	private void generateError() {
