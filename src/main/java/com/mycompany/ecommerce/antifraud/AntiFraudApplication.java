@@ -57,7 +57,7 @@ public class AntiFraudApplication {
 	@RequestMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map healthcheck() {
 		// Comment out to generate a synthetic error
-		//generateError();
+		generateError();
 		return Collections.singletonMap("status", "Up");
 	}
 
@@ -68,9 +68,9 @@ public class AntiFraudApplication {
 
 	private void generateError() {
 		// Comment out to generate a synthetic error
-		/*if (pomVersion.equals("0.0.3")) {
+		if (pomVersion.equals("0.0.3")) {
 			// Generate a synthetic error if version is not right
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-		}*/
+		}
 	}
 }
