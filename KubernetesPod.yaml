@@ -1,0 +1,48 @@
+metadata:
+  labels:
+    some-label: some-label-value
+spec:
+  containers:
+  - name: jnlp
+    env:
+    - name: CONTAINER_ENV_VAR
+      value: jnlp
+  - name: maven
+    image: maven:3.6.3-jdk-11
+    command:
+    - sleep
+    args:
+    - 99d
+    env:
+    - name: DOCKER_HOST
+      value: tcp://localhost:2375
+    - name: MAVEN_CONFIG
+      value: ""
+  - name: dind
+    image: docker:20.10.12-dind
+    securityContext:
+      privileged: true
+    env:
+      - name: DOCKER_TLS_CERTDIR
+        value: ""
+    command:
+      - dockerd
+    args:
+      - -H tcp://localhost:2375
+      - -H unix:///var/run/docker.sock
+    ports:
+      - containerPort: 2375
+        hostIP: 127.0.0.1
+    volumeMounts:
+      - name: docker-cache
+        mountPath: /var/lib/docker
+  volumes:
+    - name: docker-cache
+      emptyDir: {}
+  resources:
+    limits:
+      cpu: 2
+      memory: 8Gi
+    requests:
+      cpu: 1
+      memory: 4Gi
