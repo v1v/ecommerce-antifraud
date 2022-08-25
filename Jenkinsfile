@@ -15,7 +15,7 @@ pipeline {
                                 passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
                                 usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
                             sh (label: 'mvn deploy spring-boot:build-image',
-                                script: 'export OTEL_TRACES_EXPORTER="otlp" && ./mvnw -V -B deploy')
+                                script: 'export OTEL_TRACES_EXPORTER="otlp" && ./mvnw -V -B deploy -Dmaven.deploy.skip')
                         }
                     }
                 }
